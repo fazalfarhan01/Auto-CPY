@@ -13,7 +13,7 @@ function got_devices(devices) {
     // Callback for python get_devices()
 
     // This global variable if only for debugging
-    Devices = devices;
+    // Devices = devices;
 
     // Add devices to UI
     addDeviceToDeviceList(devices);
@@ -21,6 +21,7 @@ function got_devices(devices) {
 
 
 function addDeviceToDeviceList(deviceList) {
+    // Add Connected devices to UI Dropdown
     deviceList.forEach(element => {
         var x = document.getElementById("connectedDevices");
         var option = document.createElement("option");
@@ -28,4 +29,20 @@ function addDeviceToDeviceList(deviceList) {
         option.value = element;
         x.add(option);
     });
+}
+
+function connectAndStart() {
+    // infoFromForm = Array.from(document.querySelectorAll("#parameterForm input")).reduce((acc, input) => ({...acc, [input.id]: input.value }), {})
+    // var device = document.getElementById("connectedDevices").value;
+    var parameters = {
+        "-s": document.getElementById("connectedDevices").value,
+        "-b": document.getElementById("bitrate").value,
+        "-m": document.getElementById("resolution").value,
+        "--no-control": document.getElementById("wantControl").checked,
+        "--turn-screen-off": document.getElementById("screenOff").checked,
+        "--always-on-top": document.getElementById("alwaysOnTop").checked,
+        "--fullscreen": document.getElementById("fullScreen").checked,
+    };
+    console.log(`Connecting to ${parameters["-s"]}`);
+    eel.start_scrcpy(parameters);
 }

@@ -6,20 +6,42 @@ import threading
 import eel
 
 
-adb = r"./scrcpy/adb.exe"
-scrcpy = r"./scrcpy/scrcpy.exe"
+# adb = os.path.join(os.getcwd(), os.path.normpath("scrcpy/adb.exe"))
+# scrcpy = os.path.join(os.getcwd(), os.path.normpath("scrcpy/scrcpy.exe"))
+
+adb = "scrcpy/adb.exe"
+scrcpy = "scrcpy/scrcpy.exe"
+
+print("Scrcpy Path: {}".format(scrcpy))
+print("ADB Path: {}".format(adb))
 
 Devices = []
 Connect_To = ""
 
 @eel.expose
-def start_scrcpy(device_to_connect_to):
-    command_string = "{} -s {}".format(scrcpy ,device_to_connect_to)
+def start_scrcpy(parameters):
+    command_string = "{} -s {} --window-title 'Auto CPY'".format(scrcpy ,parameters["-s"])
+    if parameters["-b"] != "0":
+        command_string += " -b " + parameters["-b"]
+    if parameters["-m"] != "0":
+        command_string += " -m " + parameters["-m"]
+    if not parameters["--no-control"]:
+        command_string += " --no-control"
+    if parameters["--turn-screen-off"]:
+        command_string += " --turn-screen-off"
+    if parameters["--fullscreen"]:
+        command_string += " --fullscreen"
+    if parameters["--always-on-top"]:
+        command_string += " --always-on-top"
     command = shlex.split(command_string)
     stream = subprocess.Popen(command, stdout=sys.stdout)
     thread = threading.Thread(name= "scrcpy", target= stream.communicate)
     thread.start()
     print("Completed")
+
+    ## DEBUG
+    # print(parameters)
+    print(command_string)
 
 @eel.expose
 def get_device_to_connect_to(devices):
@@ -49,12 +71,15 @@ def get_connected_devices():
         devices.append(element)
     return devices
 
-@eel.expose
+
 def begin():
     global Devices, Connect_To
     Devices = get_connected_devices()
     Connect_To = get_device_to_connect_to(Devices)
-    start_scrcpy(Connect_To)
+    parameters = {
+        "-s":Connect_To,
+    }
+    start_scrcpy(parameters)
 
 
 

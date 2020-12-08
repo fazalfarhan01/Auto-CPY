@@ -41,7 +41,7 @@
                     <!-- <li><a href="#work">Work</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li> -->
-                    <li><a href="#elements">Elements</a></li>
+                    <!-- <li><a href="#elements">Elements</a></li> -->
                 </ul>
             </nav>
         </header>
@@ -53,17 +53,46 @@
             <article id="devices">
                 <section>
                     <h3 class="major">Connected Devices</h3>
-                    <form method="post" action="#">
+                    <form method="GET" action="//google.com" target="hidden_iframe" id="parameterForm">
                         <div class="fields">
                             <div class="field">
                                 <label for="connectedDevices">Connected Devices</label>
                                 <select name="connectedDevices" id="connectedDevices">
 									<option value="">Select A Device To Connect To</option>
-									<!-- <option value="Manufacturing">Manufacturing</option>
-									<option value="Shipping">Shipping</option>
-									<option value="Administration">Administration</option>
-									<option value="Human_Resources">Human Resources</option> -->
-								</select>
+                                </select>
+                            </div>
+                            <div class="field half">
+                                <select name="bitrate" id="bitrate">
+                                    <option value="0">Default</option>
+                                    <option value="4M">4 Mbps</option>
+                                    <option value="2M">2 Mbps</option>
+                                    <option value="1M">1 Mbps</option>
+                                    <option value="500K">500 Kbps</option>
+                                </select>
+                            </div>
+                            <div class="field half">
+                                <select name="resolution" id="resolution">
+                                    <option value="0">Default</option>
+                                    <option value="1080">1080P</option>
+                                    <option value="720">720P</option>
+                                    <option value="480">480P</option>
+                                </select>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="wantControl" name="wantControl" checked>
+                                <label for="wantControl">Screen Control</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="screenOff" name="screenOff">
+                                <label for="screenOff">Screen Off</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="alwaysOnTop" name="alwaysOnTop">
+                                <label for="alwaysOnTop">Always On Top</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="fullScreen" name="fullScreen">
+                                <label for="fullScreen">Full Screen</label>
                             </div>
                             <!-- <div class="field half">
                                 <input type="radio" id="demo-priority-low" name="demo-priority" checked="">
@@ -87,7 +116,7 @@
                             </div> -->
                         </div>
                         <ul class="actions">
-                            <li><input type="submit" value="Start Scrcpy" class="primary"></li>
+                            <li><input type="button" value="Start Scrcpy" class="primary" id="startScrcpy" onclick="connectAndStart()"></li>
                             <li><input type="reset" value="Reset"></li>
                         </ul>
                     </form>
@@ -384,6 +413,9 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
             </article>
 
+            <!-- Hidden IFrame -->
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
         </div>
 
         <!-- Footer -->
@@ -403,9 +435,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/jsLogics/main.js"></script>
-
-    <!-- Font Awesome -->
-    <!-- <script src="https://kit.fontawesome.com/be11e294d7.js" crossorigin="anonymous"></script> -->
 </body>
 
 </html>
