@@ -12,8 +12,8 @@ import eel
 adb = "scrcpy/adb.exe"
 scrcpy = "scrcpy/scrcpy.exe"
 
-print("Scrcpy Path: {}".format(scrcpy))
-print("ADB Path: {}".format(adb))
+# print("Scrcpy Path: {}".format(scrcpy))
+# print("ADB Path: {}".format(adb))
 
 Devices = []
 Connect_To = ""
@@ -37,11 +37,11 @@ def start_scrcpy(parameters):
     stream = subprocess.Popen(command, stdout=sys.stdout)
     thread = threading.Thread(name= "scrcpy", target= stream.communicate)
     thread.start()
-    print("Completed")
+    print("Starting Scrcpy")
 
     ## DEBUG
     # print(parameters)
-    print(command_string)
+    # print(command_string)
 
 @eel.expose
 def get_device_to_connect_to(devices):
