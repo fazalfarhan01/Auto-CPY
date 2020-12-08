@@ -3,67 +3,69 @@ import subprocess, sys, shlex
 import re
 import threading
 
-class AutoCPY(object):
-    def __init__(self):
-        self.adb = r"./scrcpy/adb.exe"
-        self.scrcpy = r"./scrcpy/scrcpy.exe"
-
-    def start_scrcpy(self):
-        command_string = "{} -s {}".format(self.scrcpy ,self.device_to_connect_to)
-        command = shlex.split(command_string)
-        stream = subprocess.Popen(command, stdout=sys.stdout)
-        thread = threading.Thread(name= "scrcpy", target= stream.communicate)
-        thread.start()
-        print("Completed")
-
-    def get_device_to_connect_to(self):
-        for device_number in range(len(self.devices)):
-            print("{}. {}".format(device_number + 1, self.devices[device_number]))
-        print("\n")
-
-        connect_to = input("Enter the device number to connect to: ".upper())
-        if connect_to.isnumeric() and int(connect_to) in range(len(self.devices)+ 1) :
-            self.device_to_connect_to =  self.devices[int(connect_to) - 1]
-        else:
-            print("Enter a valid Device Number".upper())
-            self.get_device_to_connect_to()
-
-    def get_connected_devices(self):
-
-        command_string = "{} devices".format(self.adb)
-        command = shlex.split(command_string)
-        stream = subprocess.Popen(command, stdout=subprocess.PIPE)
-        command_output = stream.communicate()
-        output = (command_output[0].decode("utf-8") if (command_output[0] is not None) else None).split()
-        error = command_output[1].decode("utf-8") if (command_output[1] is not None) else None
-
-        if error != None:
-            print("Error Occured".upper())
+import eel
 
 
-        self.devices = []
-        for element in output[4::2]:
-            # RE Approach isn't efficient in this case
-            # print (element)
-            # device = re.findall(r"[0-9]+.[0-9]", element)
-            # if len(device) != 0:
-            self.devices.append(element)
-    
-    def begin(self):
-        self.get_connected_devices()
-        self.get_device_to_connect_to()
-        self.start_scrcpy()
+adb = r"./scrcpy/adb.exe"
+scrcpy = r"./scrcpy/scrcpy.exe"
+
+Devices = []
+Connect_To = ""
+
+@eel.expose
+def start_scrcpy(device_to_connect_to):
+    command_string = "{} -s {}".format(scrcpy ,device_to_connect_to)
+    command = shlex.split(command_string)
+    stream = subprocess.Popen(command, stdout=sys.stdout)
+    thread = threading.Thread(name= "scrcpy", target= stream.communicate)
+    thread.start()
+    print("Completed")
+
+@eel.expose
+def get_device_to_connect_to(devices):
+    for device_number in range(len(devices)):
+        print("{}. {}".format(device_number + 1, devices[device_number]))
+    print("\n")
+    connect_to = input("Enter the device number to connect to: ".upper())
+    if connect_to.isnumeric() and int(connect_to) in range(len(devices)+ 1) :
+        device_to_connect_to =  devices[int(connect_to) - 1]
+    else:
+        print("Enter a valid Device Number".upper())
+        get_device_to_connect_to(devices)
+    return device_to_connect_to
+
+@eel.expose
+def get_connected_devices():
+    command_string = "{} devices".format(adb)
+    command = shlex.split(command_string)
+    stream = subprocess.Popen(command, stdout=subprocess.PIPE)
+    command_output = stream.communicate()
+    output = (command_output[0].decode("utf-8") if (command_output[0] is not None) else None).split()
+    error = command_output[1].decode("utf-8") if (command_output[1] is not None) else None
+    if error != None:
+        print("Error Occured".upper())
+    devices = []
+    for element in output[4::2]:
+        devices.append(element)
+    return devices
+
+@eel.expose
+def begin():
+    global Devices, Connect_To
+    Devices = get_connected_devices()
+    Connect_To = get_device_to_connect_to(Devices)
+    start_scrcpy(Connect_To)
 
 
 
 
 if __name__ == "__main__":
     # CHECK IF RUNNING ON WINDOWS
-    if sys.platform == "win32":
-        autocpy = AutoCPY()
-        autocpy.begin()
-        
-        
+    # if sys.platform == "win32":
+        # begin()
+        # eel.start("index.html")
+    eel.init("web")
+    eel.start("index.html")
     # IF NOT ON WINDOWS
-    else:
-        print("Un-supported Platform...!\nCurrently works only on Windows.")
+    # else:
+    #     print("Un-supported Platform...!\nCurrently works only on Windows.")

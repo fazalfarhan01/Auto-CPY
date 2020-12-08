@@ -1,0 +1,1 @@
+.\autoadb.exe .\scrcpy\scrcpy.exe -s "{}"
