@@ -16,7 +16,7 @@ Unicode True
 !define REG_ROOT "HKCU"
 !define REG_APP_PATH "Software\Microsoft\Windows\CurrentVersion\App Paths\${MAIN_APP_EXE}"
 !define UNINSTALL_PATH "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}"
-!define MUI_ICON ".\web\images\favicon.ico"
+!define MUI_ICON ".\favicon.ico"
 
 
 ######################################################################
@@ -87,6 +87,7 @@ File "Auto-CPY.exe"
 File "autoadb.exe"
 File "start.bat"
 File "start.vbs"
+File "favicon.ico"
 SetOutPath "$INSTDIR\scrcpy"
 File /nonfatal /a /r "scrcpy\"
 SectionEnd
@@ -103,6 +104,7 @@ CreateDirectory "$SMPROGRAMS\$SM_Folder"
 CreateShortCut "$SMPROGRAMS\$SM_Folder\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}"
 CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}"
 CreateShortCut "$SMPROGRAMS\$SM_Folder\Uninstall ${APP_NAME}.lnk" "$INSTDIR\uninstall.exe"
+CreateShortCut "$INSTDIR\${APP_NAME}.lnk" "$INSTDIR\start.vbs" "" "$MUI_ICON" "" "" "" "Launch Auto-CPY in background on boot"
 
 !ifdef WEB_SITE
 WriteIniStr "$INSTDIR\${APP_NAME} website.url" "InternetShortcut" "URL" "${WEB_SITE}"
@@ -116,6 +118,7 @@ CreateDirectory "$SMPROGRAMS\Auto-CPY"
 CreateShortCut "$SMPROGRAMS\Auto-CPY\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}"
 CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}"
 CreateShortCut "$SMPROGRAMS\Auto-CPY\Uninstall ${APP_NAME}.lnk" "$INSTDIR\uninstall.exe"
+CreateShortCut "$INSTDIR\${APP_NAME}.lnk" "$INSTDIR\start.vbs" "" "$INSTDIR\favicon.ico" "" "" "" "Launch Auto-CPY in background on boot"
 
 !ifdef WEB_SITE
 WriteIniStr "$INSTDIR\${APP_NAME} website.url" "InternetShortcut" "URL" "${WEB_SITE}"
@@ -169,6 +172,7 @@ RmDir "$INSTDIR"
 !insertmacro MUI_STARTMENU_GETFOLDER "Application" $SM_Folder
 Delete "$SMPROGRAMS\$SM_Folder\${APP_NAME}.lnk"
 Delete "$SMPROGRAMS\$SM_Folder\Uninstall ${APP_NAME}.lnk"
+Delete "$INSTDIR\${APP_NAME}.lnk"
 !ifdef WEB_SITE
 Delete "$SMPROGRAMS\$SM_Folder\${APP_NAME} Website.lnk"
 !endif
