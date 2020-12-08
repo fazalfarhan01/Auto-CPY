@@ -1,1 +1,1 @@
-.\autoadb.exe .\scrcpy\scrcpy.exe -s "{}"
+.\autoadb.exe .\Auto-CPY.exe

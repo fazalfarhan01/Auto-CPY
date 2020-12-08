@@ -84,6 +84,9 @@ ${INSTALL_TYPE}
 SetOverwrite ifnewer
 SetOutPath "$INSTDIR"
 File "Auto-CPY.exe"
+File "autoadb.exe"
+File "start.bat"
+File "start.vbs"
 SetOutPath "$INSTDIR\scrcpy"
 File /nonfatal /a /r "scrcpy\"
 SectionEnd
@@ -137,6 +140,9 @@ SectionEnd
 Section Uninstall
 ${INSTALL_TYPE}
 Delete "$INSTDIR\${MAIN_APP_EXE}"
+Delete "$INSTDIR\autoadb.exe"
+Delete "$INSTDIR\start.bat"
+Delete "$INSTDIR\start.vbs"
 Delete "$INSTDIR\scrcpy\adb.exe"
 Delete "$INSTDIR\scrcpy\AdbWinApi.dll"
 Delete "$INSTDIR\scrcpy\AdbWinUsbApi.dll"
