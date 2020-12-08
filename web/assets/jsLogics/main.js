@@ -12,6 +12,7 @@ function onAppLoad() {
 function changeLaunchOnConnect() {
     let status = document.getElementById("launchOnConnect").checked;
     eel.changeStartOnConnectStatus(status);
+    document.getElementById("restartNotification").style.display = "block";
 }
 
 

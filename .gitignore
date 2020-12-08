@@ -1,6 +1,7 @@
-/env
-/build
-/dist
+env
+build
+dist
 *.spec
 *.exe
 !autoadb.exe
+__pycache__
