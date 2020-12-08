@@ -6,8 +6,23 @@ window.onload = onAppLoad();
 function onAppLoad() {
     // Executes on app load
     eel.get_connected_devices()(got_devices);
+    eel.checkStartOnConnect()(setLaunchOnConnect);
 }
 
+function changeLaunchOnConnect() {
+    let status = document.getElementById("launchOnConnect").checked;
+    eel.changeStartOnConnectStatus(status);
+}
+
+
+function setLaunchOnConnect(enabled) {
+    if (enabled) {
+        document.getElementById("launchOnConnect").checked = true;
+    } else {
+        document.getElementById("launchOnConnect").checked = false;
+    }
+    document.getElementById("launchOnConnect").addEventListener("change", changeLaunchOnConnect);
+}
 
 function got_devices(devices) {
     // Callback for python get_devices()

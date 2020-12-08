@@ -2,6 +2,7 @@ import os
 import subprocess, sys, shlex
 import re
 import threading
+from shutil import copyfile
 
 import eel
 
@@ -80,6 +81,20 @@ def begin():
         "-s":Connect_To,
     }
     start_scrcpy(parameters)
+
+@eel.expose
+def checkStartOnConnect():
+    enabled = os.path.exists("C:\\Users\\"+ os.getlogin() +"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Auto-CPY.lnk")
+    return enabled
+
+@eel.expose
+def changeStartOnConnectStatus(status):
+    # If Have to install and not already installed
+    if status and not checkStartOnConnect():
+        copyfile(os.path.join(os.getcwd(), "Auto-CPY.lnk"), "C:\\Users\\"+ os.getlogin() +"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Auto-CPY.lnk")
+    # if have to remove and file exists
+    elif (not status) and checkStartOnConnect():
+        os.remove("C:\\Users\\"+ os.getlogin() +"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Auto-CPY.lnk")
 
 
 
