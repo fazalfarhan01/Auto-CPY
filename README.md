@@ -8,3 +8,7 @@ GUI Client for [Scrcpy](https://github.com/Genymobile/scrcpy) and [Gnirehtet](ht
 3. Launch the Application.
 ### If Auto launch on device connect is turned on, you will have to add an ___exclusion___ in windows defender.
 Check [__Releases__](https://github.com/fazalfarhan01/Auto-CPY/releases/) for more information
+
+## Screenshots
+![App Interface Home](./web/images/AppInterface1.png)
+![App Interface Scrcpy](./web/images/AppInterface2.png)
