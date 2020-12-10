@@ -1,8 +1,8 @@
 # Auto-CPY
 
-![Total Downloads](https://img.shields.io/github/downloads/fazalfarhan01/Auto-CPY/total?color=0f0&label=Total%20Downloads&style=plastic)
-![Release Version](https://img.shields.io/github/v/release/fazalfarhan01/Auto-CPY?label=Release&style=plastic)
-![License](https://img.shields.io/github/license/fazalfarhan01/Auto-CPY?style=plastic)
+[![Total Downloads](https://img.shields.io/github/downloads/fazalfarhan01/Auto-CPY/total?color=0f0&label=Total%20Downloads&style=plastic)](https://github.com/fazalfarhan01/Auto-CPY/releases/download/Beta-2.0/Auto-CPY.Installer.exe)
+[![Release Version](https://img.shields.io/github/v/release/fazalfarhan01/Auto-CPY?label=Release&style=plastic)](https://github.com/fazalfarhan01/Auto-CPY/releases/)
+[![License](https://img.shields.io/github/license/fazalfarhan01/Auto-CPY?style=plastic)]()
 
 ---
 GUI Client for [Scrcpy](https://github.com/Genymobile/scrcpy) and [Gnirehtet](https://github.com/Genymobile/gnirehtet) (Yet to be added) with auto-launch on device connect.
