@@ -123,6 +123,7 @@
                         <ul class="actions">
                             <li><input type="button" value="Start Scrcpy" class="primary" id="startScrcpy" onclick="connectAndStart()"></li>
                             <li><input type="reset" value="Reset"></li>
+                            <li><input type="button" value="Refresh" class="primary" onclick="onRefreshClicked()"></li>
                         </ul>
                     </form>
                 </section>
@@ -394,8 +395,8 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
                                 <input type="email" name="demo-email" id="demo-email" value="" placeholder="jane@untitled.tld" />
                             </div>
                             <div class="field">
-                                <label for="connectedDevices">Category</label>
-                                <select name="connectedDevices" id="connectedDevices">
+                                <label for="test">Category</label>
+                                <select name="test" id="test">
 													<option value="">-</option>
 													<option value="1">Manufacturing</option>
 													<option value="1">Shipping</option>

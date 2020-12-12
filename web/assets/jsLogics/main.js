@@ -9,6 +9,10 @@ function onAppLoad() {
     eel.checkStartOnConnect()(setLaunchOnConnect);
 }
 
+function onRefreshClicked() {
+    eel.get_connected_devices()(got_devices);
+}
+
 function changeLaunchOnConnect() {
     let status = document.getElementById("launchOnConnect").checked;
     eel.changeStartOnConnectStatus(status);
@@ -39,11 +43,13 @@ function got_devices(devices) {
 function addDeviceToDeviceList(deviceList) {
     // Add Connected devices to UI Dropdown
     deviceList.forEach(element => {
-        var x = document.getElementById("connectedDevices");
-        var option = document.createElement("option");
-        option.text = element;
-        option.value = element;
-        x.add(option);
+        if (!$("#connectedDevices option[value='27228342']").length > 0) {
+            var x = document.getElementById("connectedDevices");
+            var option = document.createElement("option");
+            option.text = element;
+            option.value = element;
+            x.add(option);
+        }
     });
 }
 
