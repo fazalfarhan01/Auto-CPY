@@ -38,3 +38,13 @@ Check [__Releases__](https://github.com/fazalfarhan01/Auto-CPY/releases/) for mo
 7. Generate the exe file `python -m eel .\main.py .\web --onefile --icon=.\web\images\favicon.ico -n Auto-CPY.exe`
 8. Move the generated `.exe` to main directory `mv .\dist\Auto-CPY.exe .`
 9. Double click to run the `Auto-CPY.exe`. Alternatively Double click `run.vbs` to run without console.
+
+## Technologies Used
+1. Python (3.7.9)
+2. HTML (UI)
+3. CSS (UI)
+4. JS (UI to Python)
+5. [NSIS](https://en.wikipedia.org/wiki/Nullsoft_Scriptable_Install_System)
+6. scrcpy
+7. auto-adb
+8. ~~gnirehtet~~ (not yet)
