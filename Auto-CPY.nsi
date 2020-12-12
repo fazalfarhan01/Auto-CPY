@@ -74,7 +74,7 @@ InstallDir "$PROGRAMFILES64\Auto-CPY\"
 
 !insertmacro MUI_UNPAGE_INSTFILES
 
-!insertmacro MUI_UNPAGE_FINISH
+; !insertmacro MUI_UNPAGE_FINISH
 
 !insertmacro MUI_LANGUAGE "English"
 
