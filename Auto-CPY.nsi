@@ -66,8 +66,9 @@ InstallDir "$PROGRAMFILES64\Auto-CPY\"
 
 !insertmacro MUI_PAGE_INSTFILES
 
-!define MUI_FINISHPAGE_RUN "$INSTDIR\${MAIN_APP_EXE}"
-!insertmacro MUI_PAGE_FINISH
+; !define MUI_FINISHPAGE_RUN "$INSTDIR\${MAIN_APP_EXE}"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\run.vbs"
+; !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_CONFIRM
 
@@ -87,6 +88,8 @@ File "Auto-CPY.exe"
 File "autoadb.exe"
 File "start.bat"
 File "start.vbs"
+File "run.bat"
+File "run.vbs"
 File "favicon.ico"
 SetOutPath "$INSTDIR\scrcpy"
 File /nonfatal /a /r "scrcpy\"
@@ -101,10 +104,12 @@ WriteUninstaller "$INSTDIR\uninstall.exe"
 !ifdef REG_START_MENU
 !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
 CreateDirectory "$SMPROGRAMS\$SM_Folder"
-CreateShortCut "$SMPROGRAMS\$SM_Folder\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}"
-CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}"
+; CreateShortCut "$SMPROGRAMS\$SM_Folder\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}"
+CreateShortCut "$SMPROGRAMS\$SM_Folder\${APP_NAME}.lnk" "$INSTDIR\run.vbs"
+; CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}"
+CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\run.vbs"
 CreateShortCut "$SMPROGRAMS\$SM_Folder\Uninstall ${APP_NAME}.lnk" "$INSTDIR\uninstall.exe"
-CreateShortCut "$INSTDIR\${APP_NAME}.lnk" "$INSTDIR\start.vbs" "" "$MUI_ICON" "" "" "" "Launch Auto-CPY in background on boot"
+CreateShortCut "$INSTDIR\${APP_NAME}.lnk" "$INSTDIR\start.vbs" "" "$INSTDIR\favicon.ico" "" "" "" "Launch Auto-CPY in background on boot"
 
 !ifdef WEB_SITE
 WriteIniStr "$INSTDIR\${APP_NAME} website.url" "InternetShortcut" "URL" "${WEB_SITE}"
@@ -115,8 +120,8 @@ CreateShortCut "$SMPROGRAMS\$SM_Folder\${APP_NAME} Website.lnk" "$INSTDIR\${APP_
 
 !ifndef REG_START_MENU
 CreateDirectory "$SMPROGRAMS\Auto-CPY"
-CreateShortCut "$SMPROGRAMS\Auto-CPY\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}"
-CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}"
+CreateShortCut "$SMPROGRAMS\Auto-CPY\${APP_NAME}.lnk" "$INSTDIR\run.vbs" "" "$INSTDIR\favicon.ico" "" "" "" "Launch Auto-CPY"
+CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\run.vbs" "" "$INSTDIR\favicon.ico" "" "" "" "Launch Auto-CPY"
 CreateShortCut "$SMPROGRAMS\Auto-CPY\Uninstall ${APP_NAME}.lnk" "$INSTDIR\uninstall.exe"
 CreateShortCut "$INSTDIR\${APP_NAME}.lnk" "$INSTDIR\start.vbs" "" "$INSTDIR\favicon.ico" "" "" "" "Launch Auto-CPY in background on boot"
 
@@ -145,7 +150,10 @@ ${INSTALL_TYPE}
 Delete "$INSTDIR\${MAIN_APP_EXE}"
 Delete "$INSTDIR\autoadb.exe"
 Delete "$INSTDIR\start.bat"
+Delete "$INSTDIR\run.bat"
 Delete "$INSTDIR\start.vbs"
+Delete "$INSTDIR\run.vbs"
+Delete "$INSTDIR\favicon.ico"
 Delete "$INSTDIR\scrcpy\adb.exe"
 Delete "$INSTDIR\scrcpy\AdbWinApi.dll"
 Delete "$INSTDIR\scrcpy\AdbWinUsbApi.dll"
@@ -158,6 +166,7 @@ Delete "$INSTDIR\scrcpy\scrcpy.exe"
 Delete "$INSTDIR\scrcpy\SDL2.dll"
 Delete "$INSTDIR\scrcpy\swresample-3.dll"
 Delete "$INSTDIR\scrcpy\swscale-5.dll"
+Delete "$INSTDIR\${APP_NAME}.lnk"
  
 RmDir "$INSTDIR\scrcpy"
  
