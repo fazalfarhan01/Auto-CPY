@@ -43,7 +43,7 @@ function got_devices(devices) {
 function addDeviceToDeviceList(deviceList) {
     // Add Connected devices to UI Dropdown
     deviceList.forEach(element => {
-        if (!$("#connectedDevices option[value='27228342']").length > 0) {
+        if (!$(`#connectedDevices option[value='${element}']`).length > 0) {
             var x = document.getElementById("connectedDevices");
             var option = document.createElement("option");
             option.text = element;
