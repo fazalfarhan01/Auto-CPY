@@ -26,3 +26,15 @@ Check [__Releases__](https://github.com/fazalfarhan01/Auto-CPY/releases/) for mo
 ## Screenshots
 ![App Interface Home](./web/images/AppInterface1.png)
 ![App Interface Scrcpy](./web/images/AppInterface2.png)
+
+## To compile and install on your own
+1. Make sure you have Python Installed (Python 3.7.9 used for this project), and in path.
+2. Clone this repository `git clone https://github.com/fazalfarhan01/Auto-CPY.git`
+3. cd into the downloaded repo `cd Auto-CPY`
+4. Create a virtual environment `virtualenv env`
+    - You need to have virtualenv python package already installed. If not install it. `pip install virtualenv`
+5. Activate the virtual environment `.\env\Scripts\activate`
+6. Install all the required python packages `pip install -r requirements.txt`
+7. Generate the exe file `python -m eel .\main.py .\web --onefile --icon=.\web\images\favicon.ico -n Auto-CPY.exe`
+8. Move the generated `.exe` to main directory `mv .\dist\Auto-CPY.exe .`
+9. Double click to run the `Auto-CPY.exe`. Alternatively Double click `run.vbs` to run without console.
