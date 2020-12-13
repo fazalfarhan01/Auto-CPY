@@ -7,6 +7,21 @@ function onAppLoad() {
     // Executes on app load
     eel.get_connected_devices()(got_devices);
     eel.checkStartOnConnect()(setLaunchOnConnect);
+
+    document.getElementById("recordScreen").addEventListener("change", recordingOptions);
+    document.getElementById("recordFilePath").onclick = function() {
+        eel.open_explorer();
+    };
+}
+
+function recordingOptions() {
+    if (document.getElementById("recordScreen").checked) {
+        document.getElementById("recordFileOptions").style.display = "block";
+        document.getElementById("fileExtensionOptions").style.display = "block";
+    } else {
+        document.getElementById("recordFileOptions").style.display = "none";
+        document.getElementById("fileExtensionOptions").style.display = "none";
+    }
 }
 
 function onRefreshClicked() {
@@ -64,6 +79,9 @@ function connectAndStart() {
         "--turn-screen-off": document.getElementById("screenOff").checked,
         "--always-on-top": document.getElementById("alwaysOnTop").checked,
         "--fullscreen": document.getElementById("fullScreen").checked,
+        "--stay-awake": document.getElementById("stayAwake").checked,
+        "--record": document.getElementById("recordScreen").checked,
+        "extension": document.getElementById("fileExtension").value,
     };
     console.log(`Connecting to ${parameters["-s"]}`);
     eel.start_scrcpy(parameters);

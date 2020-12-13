@@ -67,6 +67,7 @@
                                 </select>
                             </div>
                             <div class="field half">
+                                <label for="bitrate">Bitrate</label>
                                 <select name="bitrate" id="bitrate">
                                     <option value="0">Default</option>
                                     <option value="4M">4 Mbps</option>
@@ -76,6 +77,7 @@
                                 </select>
                             </div>
                             <div class="field half">
+                                <label for="resolution">Resolution</label>
                                 <select name="resolution" id="resolution">
                                     <option value="0">Default</option>
                                     <option value="1080">1080P</option>
@@ -98,6 +100,25 @@
                             <div class="field half">
                                 <input type="checkbox" id="fullScreen" name="fullScreen">
                                 <label for="fullScreen">Full Screen</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="stayAwake" name="stayAwake">
+                                <label for="stayAwake">Prevent Phone From Sleeping</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="recordScreen" name="recordScreen">
+                                <label for="recordScreen">Record Screen</label>
+                            </div>
+                            <div class="field half" id="recordFileOptions" style="display: none;">
+                                <label for="recordFilePath">Recorded File Directory</label>
+                                <input type="button" value="Open Recording Directory" id="recordFilePath">
+                            </div>
+                            <div class="field half" id="fileExtensionOptions" style="display: none;">
+                                <label for="fileExtension">File Format</label>
+                                <select name="fileExtension" id="fileExtension">
+                                    <option value="mp4">MP4</option>
+                                    <option value="mkv">MKV</option>
+                                </select>
                             </div>
                             <!-- <div class="field half">
                                 <input type="radio" id="demo-priority-low" name="demo-priority" checked="">
