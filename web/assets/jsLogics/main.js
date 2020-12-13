@@ -1,4 +1,5 @@
 Devices = []
+CurrentVersion = 0.2;
 
 window.onload = onAppLoad();
 
@@ -12,6 +13,9 @@ function onAppLoad() {
     document.getElementById("recordFilePath").onclick = function() {
         eel.open_explorer();
     };
+
+    document.getElementById("versionInfo").innerText = `v${CurrentVersion}`
+    checkForUpdates();
 }
 
 function recordingOptions() {
@@ -85,4 +89,33 @@ function connectAndStart() {
     };
     console.log(`Connecting to ${parameters["-s"]}`);
     eel.start_scrcpy(parameters);
+}
+
+
+function checkForUpdates() {
+    var URL = "https://api.github.com/repos/fazalfarhan01/Auto-CPY/releases/latest";
+
+    function httpGetAsync(theUrl, callback) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.send(null);
+    }
+
+    function callbackResponse(response) {
+        var availableVersion = JSON.parse(response).tag_name.replace("v", "");
+        setTimeout(() => {
+            if (availableVersion > CurrentVersion) {
+                if (confirm("App Update Available.\nWant to download and install?")) {
+                    console.log("Pressed OK");
+                    window.open(JSON.parse(response).html_url);
+                }
+            }
+        }, 2000);
+    }
+
+    httpGetAsync(URL, callbackResponse);
 }
