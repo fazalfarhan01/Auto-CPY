@@ -1,5 +1,5 @@
 Devices = []
-CurrentVersion = 0.2;
+CurrentVersion = 0.21;
 
 window.onload = onAppLoad();
 
@@ -75,20 +75,26 @@ function addDeviceToDeviceList(deviceList) {
 function connectAndStart() {
     // infoFromForm = Array.from(document.querySelectorAll("#parameterForm input")).reduce((acc, input) => ({...acc, [input.id]: input.value }), {})
     // var device = document.getElementById("connectedDevices").value;
-    var parameters = {
-        "-s": document.getElementById("connectedDevices").value,
-        "-b": document.getElementById("bitrate").value,
-        "-m": document.getElementById("resolution").value,
-        "--no-control": document.getElementById("wantControl").checked,
-        "--turn-screen-off": document.getElementById("screenOff").checked,
-        "--always-on-top": document.getElementById("alwaysOnTop").checked,
-        "--fullscreen": document.getElementById("fullScreen").checked,
-        "--stay-awake": document.getElementById("stayAwake").checked,
-        "--record": document.getElementById("recordScreen").checked,
-        "extension": document.getElementById("fileExtension").value,
-    };
-    console.log(`Connecting to ${parameters["-s"]}`);
-    eel.start_scrcpy(parameters);
+    if (document.getElementById("parameterForm").checkValidity()) {
+        var parameters = {
+            "-s": document.getElementById("connectedDevices").value,
+            "-b": document.getElementById("bitrate").value,
+            "-m": document.getElementById("resolution").value,
+            "--no-control": document.getElementById("wantControl").checked,
+            "--turn-screen-off": document.getElementById("screenOff").checked,
+            "--always-on-top": document.getElementById("alwaysOnTop").checked,
+            "--fullscreen": document.getElementById("fullScreen").checked,
+            "--stay-awake": document.getElementById("stayAwake").checked,
+            "--record": document.getElementById("recordScreen").checked,
+            "extension": document.getElementById("fileExtension").value,
+        };
+        console.log(`Connecting to ${parameters["-s"]}`);
+        eel.start_scrcpy(parameters);
+        document.getElementById("startScrcpy").style.cursor = "progress";
+        setInterval(() => {
+            document.getElementById("startScrcpy").style.cursor = "pointer";
+        }, 1000);
+    }
 }
 
 
