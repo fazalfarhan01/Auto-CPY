@@ -54,6 +54,12 @@ function got_devices(devices) {
     // This global variable if only for debugging
     // Devices = devices;
 
+    // Remove existing devices
+    var select = document.getElementById("connectedDevices");
+    for (let index = 1; index < select.options.length; index++) {
+        select.options[index].remove()
+    }
+
     // Add devices to UI
     addDeviceToDeviceList(devices);
 }
