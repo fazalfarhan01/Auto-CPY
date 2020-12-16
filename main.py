@@ -9,23 +9,21 @@ from datetime import datetime
 
 import eel
 
-
-# adb = os.path.join(os.getcwd(), os.path.normpath("scrcpy/adb.exe"))
-# scrcpy = os.path.join(os.getcwd(), os.path.normpath("scrcpy/scrcpy.exe"))
+# Set to false on production
+DEBUG_MODE = False
 
 adb = "scrcpy/adb.exe"
 scrcpy = "scrcpy/scrcpy.exe"
 explorer = "C:\\\\Windows\\\\explorer.exe"
 
-# print("Scrcpy Path: {}".format(scrcpy))
-# print("ADB Path: {}".format(adb))
-
 Devices = []
 Connect_To = ""
 
+
 def run_command(command_string):
     command = shlex.split(command_string)
-    stream = subprocess.Popen(command, stdout=subprocess.PIPE)
+    stream = subprocess.Popen(
+        command, stdout=subprocess.PIPE, stderr=STD_ERR, stdin=STD_IN)
     command_output = stream.communicate()
     output = (command_output[0].decode(
         "utf-8") if (command_output[0] is not None) else None).split()
@@ -42,6 +40,7 @@ def connect_on_WiFi(ipAddress):
     command = adb + " connect " + ipAddress
     threading.Thread(name="Wifi", target=run_command, args=(command,)).start()
 
+
 @eel.expose
 def adb_disconnect():
     command = adb + " disconnect"
@@ -52,7 +51,8 @@ def adb_disconnect():
 def open_explorer():
     command_string = explorer + " \"C:\\Users\\" + os.getlogin() + "\\Videos\""
     command = shlex.split(command_string)
-    stream = subprocess.Popen(command, stdout=sys.stdout)
+    stream = subprocess.Popen(command, stdout=STD_OUT,
+                              stderr=STD_ERR, stdin=STD_IN)
     thread = threading.Thread(name="explorer", target=stream.communicate)
     thread.start()
 
@@ -79,10 +79,12 @@ def start_scrcpy(parameters):
     if parameters["--stay-awake"]:
         command_string += " --stay-awake"
     if parameters["--record"]:
-        command_string += " --record \"{}.{}\"".format(fileSaveOption, parameters["extension"])
+        command_string += " --record \"{}.{}\"".format(
+            fileSaveOption, parameters["extension"])
 
     command = shlex.split(command_string)
-    stream = subprocess.Popen(command, stdout=sys.stdout)
+    stream = subprocess.Popen(command, stdout=STD_OUT,
+                              stderr=STD_ERR, stdin=STD_IN)
     thread = threading.Thread(name="scrcpy", target=stream.communicate)
     thread.start()
     print("Starting Scrcpy")
@@ -110,7 +112,8 @@ def get_device_to_connect_to(devices):
 def get_connected_devices():
     command_string = "{} devices".format(adb)
     command = shlex.split(command_string)
-    stream = subprocess.Popen(command, stdout=subprocess.PIPE)
+    stream = subprocess.Popen(
+        command, stdout=subprocess.PIPE, stderr=STD_ERR, stdin=STD_IN)
     command_output = stream.communicate()
     output = (command_output[0].decode(
         "utf-8") if (command_output[0] is not None) else None).split()
@@ -130,7 +133,16 @@ def begin():
     Connect_To = get_device_to_connect_to(Devices)
     parameters = {
         "-s": Connect_To,
+        "-b": "0",
+        "-m": "0",
+        "--no-control": True,
+        "--turn-screen-off": False,
+        "--fullscreen": False,
+        "--always-on-top": False,
+        "--stay-awake": False,
+        "--record": False,
     }
+
     start_scrcpy(parameters)
 
 
@@ -153,13 +165,20 @@ def changeStartOnConnectStatus(status):
                   "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Auto-CPY.lnk")
 
 
+def setupModes():
+    global STD_OUT, STD_ERR, STD_IN
+    if DEBUG_MODE:
+        print("Debug Mode")
+        STD_OUT = sys.stdout
+        STD_ERR = sys.stderr
+        STD_IN = sys.stdin
+    else:
+        STD_OUT = subprocess.PIPE
+        STD_ERR = subprocess.STDOUT
+        STD_IN = subprocess.PIPE
+
+
 if __name__ == "__main__":
-    # CHECK IF RUNNING ON WINDOWS
-    # if sys.platform == "win32":
-    # begin()
-    # eel.start("index.html")
+    setupModes()
     eel.init("web")
     eel.start("index.html")
-    # IF NOT ON WINDOWS
-    # else:
-    #     print("Un-supported Platform...!\nCurrently works only on Windows.")
