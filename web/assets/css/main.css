@@ -1093,6 +1093,16 @@ input, select, textarea {
 			font-weight: 600;
 		}
 
+		input[type="submit"].primary:active,
+		input[type="reset"].primary:active,
+		input[type="button"].primary:active,
+		button.primary:active,
+		.button.primary:active {
+			background-color: #ffffff;
+			color: #1b1f22 !important;
+			font-weight: 600;
+		}
+
 		input[type="submit"].disabled, input[type="submit"]:disabled,
 		input[type="reset"].disabled,
 		input[type="reset"]:disabled,
