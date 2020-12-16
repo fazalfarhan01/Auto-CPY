@@ -115,10 +115,12 @@ function checkForUpdates() {
         var availableVersion = JSON.parse(response).tag_name.replace("v", "");
         setTimeout(() => {
             if (availableVersion > CurrentVersion) {
-                if (confirm("App Update Available.\nWant to download and install?")) {
-                    console.log("Pressed OK");
-                    window.open(JSON.parse(response).html_url);
-                }
+                // if (confirm("App Update Available.\nWant to download and install?")) {
+                //     console.log("Pressed OK");
+                //     window.open(JSON.parse(response).html_url);
+                // }
+                newUpdateURL = JSON.parse(response).html_url;
+                location.hash = "#update";
             }
         }, 2000);
     }
