@@ -1,6 +1,9 @@
 Devices = []
 CurrentVersion = 0.21;
 
+// Debug
+// CurrentVersion = 0.2
+
 window.onload = onAppLoad();
 
 
@@ -50,9 +53,6 @@ function setLaunchOnConnect(enabled) {
 
 function got_devices(devices) {
     // Callback for python get_devices()
-
-    // This global variable if only for debugging
-    // Devices = devices;
 
     // Remove existing devices
     var select = document.getElementById("connectedDevices");
@@ -132,4 +132,20 @@ function checkForUpdates() {
     }
 
     httpGetAsync(URL, callbackResponse);
+}
+
+function connectOnWiFi() {
+    // If form is valid
+    if (document.getElementById("wifiConnectForm").checkValidity()) {
+        document.getElementById("connectStatus").style.display = "block";
+
+        // Unidirectionally calls python | No Callback
+        let ipAddress = document.getElementById("ipAddress").value;
+        eel.connect_on_WiFi(ipAddress);
+    }
+}
+
+function disconnectAll() {
+    document.getElementById("connectStatus").style.display = "block";
+    eel.adb_disconnect();
 }

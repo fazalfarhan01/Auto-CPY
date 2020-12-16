@@ -23,6 +23,30 @@ explorer = "C:\\\\Windows\\\\explorer.exe"
 Devices = []
 Connect_To = ""
 
+def run_command(command_string):
+    command = shlex.split(command_string)
+    stream = subprocess.Popen(command, stdout=subprocess.PIPE)
+    command_output = stream.communicate()
+    output = (command_output[0].decode(
+        "utf-8") if (command_output[0] is not None) else None).split()
+    error = command_output[1].decode(
+        "utf-8") if (command_output[1] is not None) else None
+    if error != None:
+        print("Error Occured".upper())
+    print(" ".join(output))
+    eel.printOnWiFiConnect(" ".join(output))
+
+
+@eel.expose
+def connect_on_WiFi(ipAddress):
+    command = adb + " connect " + ipAddress
+    threading.Thread(name="Wifi", target=run_command, args=(command,)).start()
+
+@eel.expose
+def adb_disconnect():
+    command = adb + " disconnect"
+    threading.Thread(name="Wifi", target=run_command, args=(command,)).start()
+
 
 @eel.expose
 def open_explorer():
