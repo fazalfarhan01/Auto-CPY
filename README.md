@@ -25,7 +25,8 @@ Check [__Releases__](https://github.com/fazalfarhan01/Auto-CPY/releases/) for mo
 
 ## Screenshots
 ![App Interface Home](./web/images/AppInterface1.png)
-![App Interface Scrcpy](./web/images/AppInterface2.png)
+![App Interface Main](./web/images/AppInterface2.png)
+![App Interface WiFi Menu](./web/images/AppInterface3.png)
 
 ## To compile and install on your own
 1. Make sure you have Python Installed (Python 3.7.9 used for this project), and in path.
