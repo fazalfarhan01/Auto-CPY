@@ -1,5 +1,5 @@
 Devices = []
-CurrentVersion = 0.21;
+CurrentVersion = 0.22;
 
 // Debug
 // CurrentVersion = 0.2
@@ -16,6 +16,10 @@ function onAppLoad() {
     document.getElementById("recordFilePath").onclick = function() {
         eel.open_explorer();
     };
+
+    onRefreshClicked();
+    onRefreshClicked();
+    onRefreshClicked();
 
     document.getElementById("versionInfo").innerText = `v${CurrentVersion}`
     checkForUpdates();
