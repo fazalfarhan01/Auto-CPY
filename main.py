@@ -12,10 +12,6 @@ import eel
 # Set to false on production
 DEBUG_MODE = False
 
-adb = "scrcpy/adb.exe"
-scrcpy = "scrcpy/scrcpy.exe"
-explorer = "C:\\\\Windows\\\\explorer.exe"
-
 Devices = []
 Connect_To = ""
 
@@ -179,6 +175,13 @@ def setupModes():
 
 
 if __name__ == "__main__":
+    if sys.platform == "win32":
+        adb = "scrcpy/adb.exe"
+        scrcpy = "scrcpy/scrcpy.exe"
+        explorer = "C:\\\\Windows\\\\explorer.exe"
+    else:
+        print("Not on windows")
+        quit()
     setupModes()
     eel.init("web")
     eel.start("index.html")
