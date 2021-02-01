@@ -1,0 +1,532 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Auto CPY</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+
+    <!-- Eel -->
+    <script type="text/javascript" src="/eel.js"></script>
+</head>
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <div class="logo">
+                <span class="icon fa-gem"></span>
+            </div>
+            <div class="content">
+                <div class="inner">
+                    <h1>Auto-CPY</h1>
+                    <!-- <p>A fully responsive site template designed by <a href="https://html5up.net">HTML5 UP</a> and released<br /> for free under the <a href="https://html5up.net/license">Creative Commons</a> license.</p> -->
+                    <p>GUI for <b>Scrcpy</b> & <b>Gnirehtet</b> using <b>AutoADB</b></p>
+                    <div class="field">
+                        <p style="display: none;" id="restartNotification">Restart Computer for changes to take effect</p>
+                        <input type="checkbox" name="launchOnConnect" id="launchOnConnect">
+                        <label for="launchOnConnect">Auto Launch this Application on device connect</label>
+                    </div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#devices">Start</a></li>
+                    <li><a href="#" onclick="eel.open_explorer()">Open Recordings</a></li>
+                    <li><a href="#howTo">How To Use</a></li>
+                    <li><a href="https://github.com/fazalfarhan01/Auto-CPY/" target="_blank" rel="nofollow" rel="noopener" rel="noreferrer">View on GitHub</a></li>
+                    <!-- <li><a href="#elements">Elements</a></li> -->
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <div id="main">
+
+            <!-- devices -->
+            <article id="devices">
+                <section>
+                    <h3 class="major">Connected Devices</h3>
+                    <form method="GET" action="//google.com" target="hidden_iframe" id="parameterForm">
+                        <div class="fields">
+                            <div class="field half">
+                                <label for="connectedDevices">Connected Devices</label>
+                                <select name="connectedDevices" id="connectedDevices" required>
+									<option value="">Select A Device To Connect To</option>
+                                </select>
+                            </div>
+                            <div class="field half">
+                                <label for="wifiConnect">Wireless</label>
+                                <input type="button" value="Connect over WiFi" id="wifiConnect" onclick="location.hash = '#wifi'">
+                            </div>
+                            <div class="field half">
+                                <label for="bitrate">Bitrate</label>
+                                <select name="bitrate" id="bitrate">
+                                    <option value="0">Default</option>
+                                    <option value="4M">4 Mbps</option>
+                                    <option value="2M">2 Mbps</option>
+                                    <option value="1M">1 Mbps</option>
+                                    <option value="500K">500 Kbps</option>
+                                </select>
+                            </div>
+                            <div class="field half">
+                                <label for="resolution">Resolution</label>
+                                <select name="resolution" id="resolution">
+                                    <option value="0">Default</option>
+                                    <option value="1080">1080P</option>
+                                    <option value="720">720P</option>
+                                    <option value="480">480P</option>
+                                </select>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="wantControl" name="wantControl" checked>
+                                <label for="wantControl">Screen Control</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="screenOff" name="screenOff">
+                                <label for="screenOff">Screen Off</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="alwaysOnTop" name="alwaysOnTop">
+                                <label for="alwaysOnTop">Always On Top</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="fullScreen" name="fullScreen">
+                                <label for="fullScreen">Full Screen</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="stayAwake" name="stayAwake">
+                                <label for="stayAwake">Prevent Phone From Sleeping</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="recordScreen" name="recordScreen">
+                                <label for="recordScreen">Record Screen</label>
+                            </div>
+                            <div class="field half" id="recordFileOptions" style="display: none;">
+                                <label for="recordFilePath">Recorded File Directory</label>
+                                <input type="button" value="Open Recording Directory" id="recordFilePath">
+                            </div>
+                            <div class="field half" id="fileExtensionOptions" style="display: none;">
+                                <label for="fileExtension">File Format</label>
+                                <select name="fileExtension" id="fileExtension">
+                                    <option value="mkv" selected>MKV</option>
+                                    <option value="mp4">MP4</option>
+                                </select>
+                            </div>
+                            <!-- <div class="field half">
+                                <input type="radio" id="demo-priority-low" name="demo-priority" checked="">
+                                <label for="demo-priority-low">Low</label>
+                            </div>
+                            <div class="field half">
+                                <input type="radio" id="demo-priority-high" name="demo-priority">
+                                <label for="demo-priority-high">High</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="demo-copy" name="demo-copy">
+                                <label for="demo-copy">Email me a copy</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="demo-human" name="demo-human" checked="">
+                                <label for="demo-human">Not a robot</label>
+                            </div>
+                            <div class="field">
+                                <label for="demo-message">Message</label>
+                                <textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+                            </div> -->
+                        </div>
+                        <ul class="actions">
+                            <li><input type="submit" value="Connect" class="primary" id="startScrcpy" onclick="connectAndStart()"></li>
+                            <li><input type="reset" value="Reset"></li>
+                            <li><input type="button" value="Refresh" class="primary" onclick="onRefreshClicked()"></li>
+                        </ul>
+                    </form>
+                </section>
+            </article>
+
+            <!-- How To Use -->
+            <article id="howTo">
+                <h2 class="major">How to use</h2>
+                <span class="image main"><img src="images/HowToUse.jpg" alt="" /></span>
+                <section>
+                    <h3>On Windows</h3>
+                    <blockquote>
+                        <ol>
+                            <li>If you have enabled launch on connect, make sure you restart your computer for background service to run.</li>
+                            <li>If launch on connect is enabled, it is a must to add an antivirus exclusion.</li>
+                        </ol>
+                    </blockquote>
+                    <h3>On Android</h3>
+                    <blockquote>
+                        <ol>
+                            <li>Turn on USB debugging from developer options. Search google on how to enable it.</li>
+                            <li>Make sure you accept the <b>Allow USB Debugging</b> prompt</li>
+                            <img src="images/AllowUSBDebuggingPrompt.png" alt="Allow USB Debugging Prompt">
+                            <li>Re-Connect your android device</li>
+                        </ol>
+                    </blockquote>
+                </section>
+            </article>
+
+            <!-- Update -->
+            <article id="update">
+                <h2 class="major">Update</h2>
+                <div>
+                    <span class="image main"><img src="images/pic03.jpg" alt="" />
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <h1>Auto-CPY</h1>
+                        </div>
+                    </span>
+                </div>
+                <h2>New Update Available</h2>
+                <h4>Want to download and install now?</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li>
+                                <input type="button" value="Yes" class="primary" onclick="window.open(newUpdateURL)">
+                            </li>
+                            <li>
+                                <input type="button" value="No, not now" onclick="location.hash = ''">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Contact -->
+            <!-- <article id="contact">
+                <h2 class="major">Contact</h2>
+                <form method="post" action="#">
+                    <div class="fields">
+                        <div class="field half">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" />
+                        </div>
+                        <div class="field half">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email" />
+                        </div>
+                        <div class="field">
+                            <label for="message">Message</label>
+                            <textarea name="message" id="message" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li><input type="submit" value="Send Message" class="primary" /></li>
+                        <li><input type="reset" value="Reset" /></li>
+                    </ul>
+                </form>
+                <ul class="icons">
+                    <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                </ul>
+            </article> -->
+
+            <!-- Wifi -->
+            <article id="wifi">
+                <h2 class="major">Connect Devices Over WiFi</h2>
+                <form action="" method="post" target="hidden_iframe" id="wifiConnectForm">
+                    <div class="fields">
+                        <div class="field">
+                            <label for="ipAddress">Enter Device IP or hostname</label>
+                            <input type="text" name="ipAddress" id="ipAddress" placeholder="192.168.xxx.xxx | rpi.local" required>
+                        </div>
+                        <div class="field">
+                            <ul class="actions">
+                                <li>
+                                    <input type="submit" value="Connect" onclick="connectOnWiFi()">
+                                </li>
+                                <li>
+                                    <input type="button" value="Disconnect" onclick="disconnectAll()">
+                                </li>
+                                <li>
+                                    <a class="button primary" href="#devices">Start</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+                <div id="connectStatus" style="display: none;">
+                    <h4>WiFi Connection Status</h4>
+                    <pre>
+                        <code id="wifiConnectResponse"></code>
+                    </pre>
+                </div>
+            </article>
+
+            <!-- Elements -->
+            <!-- <article id="elements">
+                <h2 class="major">Elements</h2>
+
+                <section>
+                    <h3 class="major">Text</h3>
+                    <p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>. This is <sup>superscript</sup> text and this is <sub>subscript</sub> text. This is <u>underlined</u> and this is code:
+                        <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
+                    <hr />
+                    <h2>Heading Level 2</h2>
+                    <h3>Heading Level 3</h3>
+                    <h4>Heading Level 4</h4>
+                    <h5>Heading Level 5</h5>
+                    <h6>Heading Level 6</h6>
+                    <hr />
+                    <h4>Blockquote</h4>
+                    <blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum
+                        ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
+                    <h4>Preformatted</h4>
+                    <pre><code>i = 0;
+
+while (!deck.isInOrder()) {
+    print 'Iteration ' + i;
+    deck.shuffle();
+    i++;
+}
+
+print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
+                </section>
+
+                <section>
+                    <h3 class="major">Lists</h3>
+
+                    <h4>Unordered</h4>
+                    <ul>
+                        <li>Dolor pulvinar etiam.</li>
+                        <li>Sagittis adipiscing.</li>
+                        <li>Felis enim feugiat.</li>
+                    </ul>
+
+                    <h4>Alternate</h4>
+                    <ul class="alt">
+                        <li>Dolor pulvinar etiam.</li>
+                        <li>Sagittis adipiscing.</li>
+                        <li>Felis enim feugiat.</li>
+                    </ul>
+
+                    <h4>Ordered</h4>
+                    <ol>
+                        <li>Dolor pulvinar etiam.</li>
+                        <li>Etiam vel felis viverra.</li>
+                        <li>Felis enim feugiat.</li>
+                        <li>Dolor pulvinar etiam.</li>
+                        <li>Etiam vel felis lorem.</li>
+                        <li>Felis enim et feugiat.</li>
+                    </ol>
+                    <h4>Icons</h4>
+                    <ul class="icons">
+                        <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                        <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                        <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                        <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                    </ul>
+
+                    <h4>Actions</h4>
+                    <ul class="actions">
+                        <li><a href="#" class="button primary">Default</a></li>
+                        <li><a href="#" class="button">Default</a></li>
+                    </ul>
+                    <ul class="actions stacked">
+                        <li><a href="#" class="button primary">Default</a></li>
+                        <li><a href="#" class="button">Default</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3 class="major">Table</h3>
+                    <h4>Default</h4>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Item One</td>
+                                    <td>Ante turpis integer aliquet porttitor.</td>
+                                    <td>29.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Item Two</td>
+                                    <td>Vis ac commodo adipiscing arcu aliquet.</td>
+                                    <td>19.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Item Three</td>
+                                    <td> Morbi faucibus arcu accumsan lorem.</td>
+                                    <td>29.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Item Four</td>
+                                    <td>Vitae integer tempus condimentum.</td>
+                                    <td>19.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Item Five</td>
+                                    <td>Ante turpis integer aliquet porttitor.</td>
+                                    <td>29.99</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td>100.00</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <h4>Alternate</h4>
+                    <div class="table-wrapper">
+                        <table class="alt">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Item One</td>
+                                    <td>Ante turpis integer aliquet porttitor.</td>
+                                    <td>29.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Item Two</td>
+                                    <td>Vis ac commodo adipiscing arcu aliquet.</td>
+                                    <td>19.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Item Three</td>
+                                    <td> Morbi faucibus arcu accumsan lorem.</td>
+                                    <td>29.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Item Four</td>
+                                    <td>Vitae integer tempus condimentum.</td>
+                                    <td>19.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Item Five</td>
+                                    <td>Ante turpis integer aliquet porttitor.</td>
+                                    <td>29.99</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td>100.00</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="major">Buttons</h3>
+                    <ul class="actions">
+                        <li><a href="#" class="button primary">Primary</a></li>
+                        <li><a href="#" class="button">Default</a></li>
+                    </ul>
+                    <ul class="actions">
+                        <li><a href="#" class="button">Default</a></li>
+                        <li><a href="#" class="button small">Small</a></li>
+                    </ul>
+                    <ul class="actions">
+                        <li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
+                        <li><a href="#" class="button icon solid fa-download">Icon</a></li>
+                    </ul>
+                    <ul class="actions">
+                        <li><span class="button primary disabled">Disabled</span></li>
+                        <li><span class="button disabled">Disabled</span></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3 class="major">Form</h3>
+                    <form method="post" action="#">
+                        <div class="fields">
+                            <div class="field half">
+                                <label for="demo-name">Name</label>
+                                <input type="text" name="demo-name" id="demo-name" value="" placeholder="Jane Doe" />
+                            </div>
+                            <div class="field half">
+                                <label for="demo-email">Email</label>
+                                <input type="email" name="demo-email" id="demo-email" value="" placeholder="jane@untitled.tld" />
+                            </div>
+                            <div class="field">
+                                <label for="test">Category</label>
+                                <select name="test" id="test">
+													<option value="">-</option>
+													<option value="1">Manufacturing</option>
+													<option value="1">Shipping</option>
+													<option value="1">Administration</option>
+													<option value="1">Human Resources</option>
+												</select>
+                            </div>
+                            <div class="field half">
+                                <input type="radio" id="demo-priority-low" name="demo-priority" checked>
+                                <label for="demo-priority-low">Low</label>
+                            </div>
+                            <div class="field half">
+                                <input type="radio" id="demo-priority-high" name="demo-priority">
+                                <label for="demo-priority-high">High</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="demo-copy" name="demo-copy">
+                                <label for="demo-copy">Email me a copy</label>
+                            </div>
+                            <div class="field half">
+                                <input type="checkbox" id="demo-human" name="demo-human" checked>
+                                <label for="demo-human">Not a robot</label>
+                            </div>
+                            <div class="field">
+                                <label for="demo-message">Message</label>
+                                <textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+                            </div>
+                        </div>
+                        <ul class="actions">
+                            <li><input type="submit" value="Send Message" class="primary" /></li>
+                            <li><input type="reset" value="Reset" /></li>
+                        </ul>
+                    </form>
+                </section>
+
+            </article> -->
+
+            <!-- Hidden IFrame -->
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="copyright">&copy; 2020 | <a href="http://fazals.ddns.net" target="_blank" rel="noopener noreferrer">DeepFocus</a> | Version: <span id="versionInfo"></span></p>
+        </footer>
+
+    </div>
+
+    <!-- BG -->
+    <div id="bg"></div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/jsLogics/main.js"></script>
+    <script src="assets/jsLogics/pythonCalls.js"></script>
+</body>
+
+</html>
